@@ -1,0 +1,24 @@
+%{
+#undef yywrap
+#define yywrap() 1
+
+/* Este es un programa en Lex que identifica líneas que comienzan o terminan con 'a',
+   e imprime mensajes apropiados en la salida estándar.
+*/
+
+#include <stdio.h>
+
+%}
+%%
+/*REGLAS*/
+a.*a\n  { printf("La línea empieza y termina con [a]\n"); printf("Ingrese una nueva línea: "); }
+a.*\n   { printf("La línea empieza con [a]\n"); printf("Ingrese una nueva línea: "); }
+.*a\n   { printf("La línea termina con [a]\n"); printf("Ingrese una nueva línea: "); }
+.*\n    { printf("La línea no empieza ni termina con [a]\n"); printf("Ingrese una nueva línea: "); }
+
+%%
+int main(int argc, char *argv[])
+{
+    yylex();
+    return 0;
+}
